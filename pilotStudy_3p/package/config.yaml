@@ -1,0 +1,24 @@
+train:
+  batch_size: 32
+  epochs: 20
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  criterion: "CrossEntropyLoss"  # Options: "CrossEntropyLoss", "BCEWithLogitsLoss" "MSELoss"
+  optimizer: "Adam"  # Options: "Adam", "SGD", "RMSprop", "Adagrad"
+
+model:
+  model_name: "EEGNet"  # Options: "EEGNet", "Conformer", "LSTM", "GRU"
+  model_ver : 0 # Options: 0, 1
+  downsampling_rate: 4  # e.g., 4: 10000 timepoints -> 2500 timepoints
+  dropout: 0.5
+  num_classes: 2
+
+data:
+  dataset_name: "3ppl"
+  base_path: "/scratch/connectome/dyhan316/ECOG_PILOT/data_rearranged"
+  mask_num: 0  # Select between [0, 49]
+  subject_agg: "sub_agg"  # Options: "sub_agg", "sub_wise"
+  norm: "norm"  # Options: "norm", "raw"
+  norm_type: "fixation_denormed"  # Options: "fixation_denormed", "fixation_normalized", "whole_trial_denormed", "whole_trial_normalized", "None" (should be None if norm is "raw")
+  stft_type: "None"  # Options: "base", "halfnfft", "halfoverlap_halfnfft", "nooverlap_halfnfft", "None"
+

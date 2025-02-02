@@ -1,0 +1,23 @@
+
+CommandNotFoundError: Your shell has not been properly configured to use 'conda activate'.
+To initialize your shell, run
+
+    $ conda init <SHELL_NAME>
+
+Currently supported shells are:
+  - bash
+  - fish
+  - tcsh
+  - xonsh
+  - zsh
+  - powershell
+
+See 'conda init --help' for more information and options.
+
+IMPORTANT: You may need to close and restart your shell after running 'conda init'.
+
+
+Traceback (most recent call last):
+  File "/scratch/connectome/dyhan316/ECOG_PILOT/main.py", line 34, in <module>
+    assert (0<= args.seed) & (args.seed <= 49), "seed (i.e. mask num) must be between 0 and 49"
+AssertionError: seed (i.e. mask num) must be between 0 and 49

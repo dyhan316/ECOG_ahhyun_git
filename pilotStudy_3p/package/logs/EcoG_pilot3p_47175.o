@@ -1,0 +1,20 @@
+no change     /scratch/connectome/ahhyun724/fsl/condabin/conda
+no change     /scratch/connectome/ahhyun724/fsl/bin/conda
+no change     /scratch/connectome/ahhyun724/fsl/bin/conda-env
+no change     /scratch/connectome/ahhyun724/fsl/bin/activate
+no change     /scratch/connectome/ahhyun724/fsl/bin/deactivate
+no change     /scratch/connectome/ahhyun724/fsl/etc/profile.d/conda.sh
+no change     /scratch/connectome/ahhyun724/fsl/etc/fish/conf.d/conda.fish
+no change     /scratch/connectome/ahhyun724/fsl/shell/condabin/Conda.psm1
+no change     /scratch/connectome/ahhyun724/fsl/shell/condabin/conda-hook.ps1
+no change     /scratch/connectome/ahhyun724/fsl/lib/python3.11/site-packages/xontrib/conda.xsh
+no change     /scratch/connectome/ahhyun724/fsl/etc/profile.d/conda.csh
+no change     /home/connectome/ahhyun724/.bashrc
+No action taken.
+/scratch/connectome/ahhyun724/DIVER/torcheeg/pilotStudy_3p/package
+node3
+Fri 24 Jan 2025 01:21:59 PM KST
+Running experiment...
+experiment ended
+Fri 24 Jan 2025 01:22:08 PM KST
+Elapsed time: 0 hours, 0 minutes, 9 seconds

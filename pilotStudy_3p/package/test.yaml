@@ -1,0 +1,9 @@
+data:
+  dataset_name: "3ppl"
+  base_path: "/scratch/connectome/dyhan316/ECOG_PILOT/data_rearranged"
+  mask_num: 0  # Select between [0, 49]
+  subject_agg: "sub_agg"  # Options: "sub_agg", "sub_wise"
+  norm: "norm"  # Options: "norm", "raw"
+  norm_type: "None"  #"fixation_denormed"  # Options: "fixation_denormed", "fixation_normalized", "whole_trial_denormed", "whole_trial_normalized", "None" (should be None if norm is "raw")
+  stft_type: "halfoverlap_halfnfft"  # Options: "base", "halfnfft", "halfoverlap_halfnfft", "nooverlap_halfnfft", "None"
+

@@ -1,0 +1,57 @@
+no change     /scratch/connectome/ahhyun724/fsl/condabin/conda
+no change     /scratch/connectome/ahhyun724/fsl/bin/conda
+no change     /scratch/connectome/ahhyun724/fsl/bin/conda-env
+no change     /scratch/connectome/ahhyun724/fsl/bin/activate
+no change     /scratch/connectome/ahhyun724/fsl/bin/deactivate
+no change     /scratch/connectome/ahhyun724/fsl/etc/profile.d/conda.sh
+no change     /scratch/connectome/ahhyun724/fsl/etc/fish/conf.d/conda.fish
+no change     /scratch/connectome/ahhyun724/fsl/shell/condabin/Conda.psm1
+no change     /scratch/connectome/ahhyun724/fsl/shell/condabin/conda-hook.ps1
+no change     /scratch/connectome/ahhyun724/fsl/lib/python3.11/site-packages/xontrib/conda.xsh
+no change     /scratch/connectome/ahhyun724/fsl/etc/profile.d/conda.csh
+no change     /home/connectome/ahhyun724/.bashrc
+No action taken.
+/scratch/connectome/ahhyun724/DIVER/torcheeg/pilotStudy_3p/package
+node3
+Fri 24 Jan 2025 01:22:53 PM KST
+Running experiment...
+Model Summary: {'model_name': 'EEGNet', 'model_ver': 0, 'downsampling_rate': 4, 'dropout': 0.5, 'num_classes': 2}
+criterion:  CrossEntropyLoss() optimizer:  Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0.0001
+)
+Training EEGNet for 20 epochs with batch size 32...
+Epoch [1/20], Loss: 0.7278
+Epoch [2/20], Loss: 0.6751
+Epoch [3/20], Loss: 0.6371
+Epoch [4/20], Loss: 0.6015
+Epoch [5/20], Loss: 0.5939
+Epoch [6/20], Loss: 0.5736
+Epoch [7/20], Loss: 0.5432
+Epoch [8/20], Loss: 0.5237
+Epoch [9/20], Loss: 0.5160
+Epoch [10/20], Loss: 0.4999
+Epoch [11/20], Loss: 0.4790
+Epoch [12/20], Loss: 0.4703
+Epoch [13/20], Loss: 0.4730
+Epoch [14/20], Loss: 0.4665
+Epoch [15/20], Loss: 0.4660
+Epoch [16/20], Loss: 0.4740
+Epoch [17/20], Loss: 0.4507
+Epoch [18/20], Loss: 0.4755
+Epoch [19/20], Loss: 0.4551
+Epoch [20/20], Loss: 0.4499
+Finished Training
+Test Accuracy: 42.59%
+experiment ended
+Fri 24 Jan 2025 01:23:05 PM KST
+Elapsed time: 0 hours, 0 minutes, 12 seconds
