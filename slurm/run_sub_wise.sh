@@ -3,10 +3,10 @@
 #SBATCH --output=slurm_logs/subwise_%A_%a.out
 #SBATCH --error=slurm_logs/subwise_%A_%a.err #SBATCH --nodelist=node2,node4
 #SBATCH --cpus-per-task=4 #fast : 16
-#SBATCH --mem=10G #SBATCH --exclude=node4
-#SBATCH --nodelist=node2
-#SBATCH --time=08:00:00
-#SBATCH --array=31 #0-50
+#SBATCH --mem=10G 
+#SBATCH --exclude=node1,node3,node4
+#SBATCH --time=24:00:00
+#SBATCH --array=0-50
 
 
 conda activate CL_MRI_2

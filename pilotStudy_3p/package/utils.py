@@ -69,15 +69,28 @@ def load_data(data_config, model_config):
     dataset = MyDataset(data_config)
     train_indices = np.where(dataset.mask == 0)[0]
     test_indices = np.where(dataset.mask == 1)[0]
+    
+    #further divide train_indices into final_train_indices and final_val_indices (take 30% as validation set)
+    np.random.seed(42)
+    np.random.shuffle(train_indices)
+    print(train_indices[:10])
+    final_train_indices = train_indices[int(len(train_indices)*0.3):] 
+    final_val_indices = train_indices[:int(len(train_indices)*0.3)]
+    
 
-    train_dataset = Subset(dataset, train_indices)
+    # train_dataset = Subset(dataset, train_indices)
+    train_dataset = Subset(dataset, final_train_indices)
+    valid_dataset = Subset(dataset, final_val_indices)
     test_dataset = Subset(dataset, test_indices)
 
     train_loader = DataLoader(
         train_dataset, batch_size=data_config.get('batch_size', 32), shuffle=True, collate_fn=lambda x: collate_fn(x, model_config)
     )
+    valid_loader = DataLoader(
+        valid_dataset, batch_size=data_config.get('batch_size', 32), shuffle=False, collate_fn=lambda x: collate_fn(x, model_config)
+    )
     test_loader = DataLoader(
         test_dataset, batch_size=data_config.get('batch_size', 32), shuffle=False, collate_fn=lambda x: collate_fn(x, model_config)
     )
 
-    return train_loader, test_loader
+    return train_loader, valid_loader, test_loader

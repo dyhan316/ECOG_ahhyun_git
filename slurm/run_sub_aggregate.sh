@@ -2,9 +2,10 @@
 #SBATCH --job-name=aggregate
 #SBATCH --output=slurm_logs/aggregate_%A_%a.out
 #SBATCH --error=slurm_logs/aggregate_%A_%a.err #SBATCH --nodelist=node2,node4
-#SBATCH --cpus-per-task=2
+#SBATCH --cpus-per-task=4
+#SBATCH --exclude=node1,node3,node4
 #SBATCH --mem=10G
-#SBATCH --time=01:00:00
+#SBATCH --time=24:00:00
 #SBATCH --array=0-50
 
 

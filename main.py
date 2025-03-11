@@ -1,7 +1,7 @@
 import numpy as np 
 from scipy import signal, stats
 import pandas as pd
-
+from sklearn.base import clone #to not use the same model for different data
 #import models
 from sklearn.linear_model import LinearRegression, Ridge
 from sklearn.svm import SVC, SVR, LinearSVC, NuSVC
@@ -43,14 +43,12 @@ classifiers_to_test = {
     "Ridge": Ridge(), #-inf~inf, so need to partition based on 0.5 #trash
     "SVC": SVC(C=1e3), #0 or 1 #this works well when C is 1e3, 
     "LinearSVC": LinearSVC(), #0 or 1  #trash
-    # "NuSVC": NuSVC(), #0 or 1  #trash
+    # "NuSVC": NuSVC(), #0 or 1  #trash #causes trouble for subject 3 so just removed. 
     "RandomForestClassifier": RandomForestClassifier(), #0 or 1 #good 
     "RandomForestClassifier_1000trees": RandomForestClassifier(n_estimators=1000), #very good 
     "DecisionTreeClassifier": DecisionTreeClassifier(), #0 or 1 #trash
     "KNeighborsClassifier": KNeighborsClassifier(n_neighbors=84), 
-    "GradientBoostingClassifier": GradientBoostingClassifier(),
-    "GaussianMixture": GaussianMixture(n_components=2), 
-    "BayesianGaussianMixture": BayesianGaussianMixture(n_components=2), 
+    "GradientBoostingClassifier": GradientBoostingClassifier(), ##following models give OOM : "GaussianMixture": GaussianMixture(n_components=2),  "BayesianGaussianMixture": BayesianGaussianMixture(n_components=2),  #too much mnemory guayssin mixters
     "ElasticNet": ElasticNet(), 
     "MLP32" :  MLPClassifier(hidden_layer_sizes=(32), validation_fraction=0.3,
                         learning_rate='adaptive', alpha=0.001, batch_size=32,
@@ -75,8 +73,8 @@ classifiers_to_test = {
 if args.subject_agg == 'sub_agg':
     #added only for sub_agg cuz they require more samples
     classifiers_to_test.update({
-        "KNeighborsClassifier": KNeighborsClassifier(n_neighbors=100), #0 or 1 #very good 
-        "KNeighborsClassifier": KNeighborsClassifier(n_neighbors=200), #0 or 1 #very good 
+        "KNeighborsClassifier_100": KNeighborsClassifier(n_neighbors=100), #0 or 1 #very good 
+        "KNeighborsClassifier_200": KNeighborsClassifier(n_neighbors=200), #0 or 1 #very good 
     })
 
 #datasets to test setup
@@ -88,7 +86,7 @@ if base_config['data']['subject_agg'] != 'sub_agg':
 
 additional_config_components_to_test_dict = {
     #timeseries
-    "raw" : {'norm': 'raw', 'norm_type': 'None', 'stft_type': 'None'},
+    # "raw" : {'norm': 'raw', 'norm_type': 'None', 'stft_type': 'None'},
     "fixation_denormed" : {'norm': 'norm', 'norm_type': 'fixation_denormed', 'stft_type': 'None'},
     "fixation_normalized" : {'norm': 'norm', 'norm_type': 'fixation_normalized', 'stft_type': 'None'},
     "whole_trial_denormed" : {'norm': 'norm', 'norm_type': 'whole_trial_denormed', 'stft_type': 'None'},
@@ -104,14 +102,16 @@ additional_config_components_to_test_dict = {
 
 config_dict = {}
 for data_name, additional_config_components in additional_config_components_to_test_dict.items():
-    config = base_config.copy()
-    config['data'].update(additional_config_components)
+    # config = base_config.copy()
+    # config['data'].update(additional_config_components)
+    config = {'data': {**base_config['data'], **additional_config_components}}
     config_dict[data_name] = config
 
 ################################
 #########Preproc Data###########
 ################################
 from data_utils import get_train_test_data
+import psutil
 train_data_dict = {}
 train_labels_dict = {}
 test_data_dict = {}
@@ -123,7 +123,8 @@ for config_name, config in config_dict.items():
     test_data_dict[config_name] = test_data
     test_labels_dict[config_name] = test_label
     print(f"{config_name} completed")
-    
+import pdb ; pdb.set_trace()
+#! should only take the top 40!!
 # #assume these are already given
 # # train_data_dict, test_data_dict, train_labels_dict, test_labels_dict = 
 
@@ -149,15 +150,18 @@ for config_name, config in config_dict.items():
 performance_records = []
 
 
-for model_name, model in classifiers_to_test.items():
+for model_name, model_template in classifiers_to_test.items():
     for data_name in train_data_dict.keys():
+        # Print memory usage
+        process = psutil.Process(os.getpid())
+        print(f"Memory usage: {process.memory_info().rss / 1024 ** 2:.2f} MB")
+        model = clone(model_template) #!important, to not use the same model for different data
         print(f"Running {model_name} on {data_name}")
         train_data = train_data_dict[data_name]
         train_labels = train_labels_dict[data_name]
         test_data = test_data_dict[data_name]
         test_labels = test_labels_dict[data_name]
-        
-        
+        # print(train_data.shape, train_data.mean())
         
         ##training and running inference 
         model.fit(train_data, train_labels)
@@ -180,8 +184,9 @@ for model_name, model in classifiers_to_test.items():
 ######RUNNING WITH PCA##########
 ################################
 for n_components in [5, 10, 20, 50] : #! 200 will not work if subject-wise! (cuz not enough samples) 
-    for model_name, model in classifiers_to_test.items():
+    for model_name, model_template in classifiers_to_test.items():
         for data_name in train_data_dict.keys():
+            model = clone(model_template)
             train_data = train_data_dict[data_name]
             train_labels = train_labels_dict[data_name]
             test_data = test_data_dict[data_name]

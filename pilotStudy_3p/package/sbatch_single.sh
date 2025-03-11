@@ -64,6 +64,11 @@ func() {
     --subject_agg $subject_agg --norm $norm --norm_type $norm_type --stft_type $stft_type
 }
 
+
+#model0, sub-wise, might be the thing that works well
+#python main.py --config config.yaml    --batch_size 8 --epochs 100 --learning_rate 0.001 --weight_decay 0.005    --criterion CrossEntropyLoss --optimizer Adam     --model_name EEGNet --model_ver 0 --downsampling_rate 16 --num_classes 2     --dataset_name 3ppl     --base_path /scratch/connectome/dyhan316/ECOG_PILOT/data_rearranged --mask_num 0     --subject_agg sub_agg --norm norm --norm_type fixation_denormed --stft_type None
+
+
 #python main.py --config config.yaml     --batch_size 32 --epochs 20 --learning_rate 0.001 --weight_decay 0.005    --criterion CrossEntropyLoss --optimizer Adam     --model_name EEGNet --model_ver 0 --downsampling_rate 4 --num_classes 2     --dataset_name 3ppl     --base_path /scratch/connectome/dyhan316/ECOG_PILOT/data_rearranged --mask_num 0     --subject_agg sub_agg --norm norm --norm_type fixation_denormed --stft_type None
 
 

@@ -82,8 +82,8 @@ if __name__ == '__main__':
     config = load_config(args.config)
     config = update_config(config, args)
     
-    train_loader, test_loader = load_data(config['data'], config['model'])
+    train_loader, valid_loader, test_loader = load_data(config['data'], config['model'])
     
-    model = train_model(config , train_loader, test_loader)
+    model = train_model(config , train_loader, valid_loader)
     evaluate_model(model, test_loader)
     
